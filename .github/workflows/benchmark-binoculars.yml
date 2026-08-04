@@ -1,0 +1,47 @@
+name: Benchmark (GPU - Binoculars)
+
+# Heavy benchmark for the max-accuracy Binoculars backend (Falcon-7B zero-shot).
+# GitHub-hosted runners have NO GPU and too little RAM to run this, so this
+# workflow is MANUAL-ONLY and must run on a SELF-HOSTED runner tagged "gpu".
+#
+# To use it:
+#   1. Add a self-hosted runner to this repo and label it "gpu"
+#      (>=32GB RAM; ideally an NVIDIA GPU for reasonable speed).
+#   2. Trigger it from the Actions tab -> "Benchmark (GPU - Binoculars)" ->
+#      "Run workflow".
+#
+# Results are saved as a downloadable artifact.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark-binoculars:
+    runs-on: [self-hosted, gpu]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install with ML deps (torch + Binoculars from GitHub)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[ml]"
+
+      - name: Run Binoculars benchmark (CUDA if available)
+        run: |
+          python scripts/benchmark_binoculars.py --device cuda:0 \
+            --report benchmark-binoculars-report.json
+
+      - name: Print report
+        run: |
+          cat benchmark-binoculars-report.json
+
+      - name: Upload benchmark report
+        uses: actions/upload-artifact@v4
+        with:
+          name: binoculars-benchmark-report
+          path: benchmark-binoculars-report.json
