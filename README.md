@@ -116,7 +116,7 @@ curl http://localhost:8000/health
 
 A Manifest V3 extension is included in [`extension/`](extension/) — scan any
 selection on a webpage via the context menu, or paste text into the popup. It
-talks to your self-hosted SynthScan server (default `http://localhost:8000`).
+talks to your self-hosted SynthScan server (default port `8001`).
 See [`extension/README.md`](extension/README.md) for install instructions.
 
 ## Backends

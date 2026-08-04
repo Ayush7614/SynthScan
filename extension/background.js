@@ -2,7 +2,8 @@
 // Creates a context-menu item and orchestrates scanning selected text on a page
 // through the self-hosted SynthScan API.
 
-const DEFAULT_API_URL = "http://localhost:8000";
+// NOTE: default port is 8001 (8000 is commonly taken by other software).
+const DEFAULT_API_URL = "http://localhost:8001";
 
 async function getApiUrl() {
   const stored = await chrome.storage.sync.get("apiUrl");

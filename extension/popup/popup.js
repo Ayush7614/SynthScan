@@ -1,6 +1,6 @@
 // SynthScan popup - scan pasted text against the configured self-hosted server.
 
-const DEFAULT_API_URL = "http://localhost:8000";
+const DEFAULT_API_URL = "http://localhost:8001";
 
 const apiUrlInput = document.getElementById("apiUrl");
 const textInput = document.getElementById("text");
