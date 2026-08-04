@@ -13,6 +13,8 @@ from synthscan.core.detector import (
     register_backend,
     scan_text,
 )
+from synthscan.backends.binoculars import BinocularsDetector  # noqa: F401
+from synthscan.backends.roberta import RobertaDetector  # noqa: F401
 
 __version__ = "0.1.0"
 

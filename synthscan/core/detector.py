@@ -69,3 +69,4 @@ def scan_text(text: str, backend: str = "heuristic", **kwargs) -> ScanResult:
 # Register the built-in backends (importing them wires the registry).
 from synthscan.backends.heuristic import HeuristicDetector  # noqa: E402
 from synthscan.backends.binoculars import BinocularsDetector  # noqa: E402
+from synthscan.backends.roberta import RobertaDetector  # noqa: E402

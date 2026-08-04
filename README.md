@@ -117,7 +117,15 @@ curl http://localhost:8000/health
 | Backend | Deps | Notes |
 |---------|------|-------|
 | `heuristic` | none | Lightweight statistical baseline for dev/tests/demos. **Not** production-accurate. |
-| `binoculars` | `synthscan[ml]` | Zero-shot deep-learning detector (ICML 2024). The production path. |
+| `roberta` | `synthscan[ml]` | **Default production path.** Small open-source classifier (~500 MB) - runs on CPU, few GB RAM. |
+| `binoculars` | `synthscan[ml]` | Highest accuracy (ICML 2024 zero-shot) - needs Falcon-7B models, >=32GB RAM or a GPU. |
+
+Try the CPU-friendly production backend:
+
+```bash
+python scripts/benchmark_roberta.py
+synthscan scan "Your text here" --backend roberta
+```
 
 Register your own backend by implementing the `Detector` protocol and calling
 `register_backend(...)` — perfect for community models, image detection, etc.
