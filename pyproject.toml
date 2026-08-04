@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "synthscan"
+version = "0.1.0"
+description = "SynthScan - open-source, self-hostable AI-content authenticity scanner. Detects synthetic text (and, on the roadmap: images and code)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "SynthScan Contributors" }]
+keywords = ["ai-detection", "content-authenticity", "writing", "education", "plagiarism", "open-source"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Text Processing",
+]
+
+[project.optional-dependencies]
+ml = ["torch", "transformers", "binoculars"]
+api = ["fastapi", "uvicorn"]
+dev = ["pytest"]
+all = ["torch", "transformers", "binoculars", "fastapi", "uvicorn"]
+
+[project.scripts]
+synthscan = "synthscan.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["synthscan*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
