@@ -37,10 +37,21 @@ Core (runs everywhere, no heavy ML dependencies):
 pip install -e .
 ```
 
-Production detection (adds PyTorch + Binoculars — large download):
+Production detection (adds PyTorch + the real Binoculars detector):
 
 ```bash
 pip install -e ".[ml]"
+```
+
+> **Heads-up for the `[ml]` extra:** the real AI-text-detection Binoculars
+> (ICML 2024, `ahans30/Binoculars`) is **not on PyPI** — the PyPI `binoculars`
+> is an unrelated statistics package. Our `[ml]` extra installs the correct one
+> from GitHub. It also pins `transformers` (4.35.x) and pulls two **Falcon-7B**
+> models (~14 GB download). **You need ≥32 GB RAM or a GPU** to run it. Use a
+> dedicated virtual environment. Validate with:
+
+```bash
+python scripts/benchmark_binoculars.py
 ```
 
 API server:

@@ -21,10 +21,14 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-ml = ["torch", "transformers", "binoculars"]
+# NOTE: the real AI-text-detection Binoculars (ICML 2024, ahans30/Binoculars) is
+# NOT on PyPI - the PyPI "binoculars" package is an unrelated stats library.
+# So we depend on the GitHub source. This also pulls Pin transformers (4.35.x)
+# and Falcon-7B models; install in a dedicated env when you have >=32GB RAM/GPU.
+ml = ["torch", "binoculars @ git+https://github.com/ahans30/Binoculars.git"]
 api = ["fastapi", "uvicorn"]
 dev = ["pytest"]
-all = ["torch", "transformers", "binoculars", "fastapi", "uvicorn"]
+all = ["torch", "binoculars @ git+https://github.com/ahans30/Binoculars.git", "fastapi", "uvicorn"]
 
 [project.scripts]
 synthscan = "synthscan.cli:main"
@@ -34,3 +38,6 @@ include = ["synthscan*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    "heavyml: opt-in tests that require real ML models (set SYNTHSCAN_RUN_HEAVY=1)",
+]
