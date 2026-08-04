@@ -112,6 +112,13 @@ curl http://localhost:8000/health
 
 ---
 
+## Browser extension
+
+A Manifest V3 extension is included in [`extension/`](extension/) — scan any
+selection on a webpage via the context menu, or paste text into the popup. It
+talks to your self-hosted SynthScan server (default `http://localhost:8000`).
+See [`extension/README.md`](extension/README.md) for install instructions.
+
 ## Backends
 
 | Backend | Deps | Notes |
@@ -135,8 +142,9 @@ Register your own backend by implementing the `Detector` protocol and calling
 ## Roadmap
 
 - [x] Core text detection pipeline (backend registry, segmentation, CLI, API)
-- [ ] Production Binoculars backend validation & benchmarks
-- [ ] Browser extension
+- [x] Lightweight CPU-friendly RoBERTa backend (default production path)
+- [ ] Real Binoculars benchmark on GPU hardware
+- [x] Browser extension (Manifest V3 - context menu + popup)
 - [ ] Image detection
 - [ ] Code detection
 - [ ] Live-web plagiarism index (opt-in)
