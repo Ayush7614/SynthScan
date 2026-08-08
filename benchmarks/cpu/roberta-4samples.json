@@ -1,0 +1,33 @@
+{
+  "backend": "roberta",
+  "model": "roberta-base-openai-detector",
+  "total": 4,
+  "correct": 3,
+  "accuracy": 0.75,
+  "results": [
+    {
+      "expected": "human",
+      "verdict": "AI-generated",
+      "ai_probability": 0.7885,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0009,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.7244,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.8063,
+      "ok": true
+    }
+  ]
+}

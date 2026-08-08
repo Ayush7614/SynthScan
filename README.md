@@ -23,7 +23,8 @@ Read the full philosophy in [POSITIONING_MANIFESTO.md](POSITIONING_MANIFESTO.md)
 - **Self-hostable.** Run it on your laptop, a school's server, or a $5/mo VPS.
   Your text stays in your hands — ideal for FERPA/GDPR-sensitive environments.
 - **Zero-shot by default.** Production detection uses Binoculars (no per-model
-  retraining), with a lightweight statistical backend for dev/offline use.
+  retraining); a lightweight RoBERTa classifier is available as a CPU baseline
+  (honestly, it is GPT-2-era and not reliable for current LLMs — see Benchmarks).
 - **Fair by design.** Outputs are probabilities with per-segment highlighting,
   not accusations.
 
@@ -124,35 +125,33 @@ See [`extension/README.md`](extension/README.md) for install instructions.
 | Backend | Deps | Notes |
 |---------|------|-------|
 | `heuristic` | none | Lightweight statistical baseline for dev/tests/demos. **Not** production-accurate. |
-| `roberta` | `synthscan[ml]` | **Default production path.** Small open-source classifier (~500 MB) - runs on CPU, few GB RAM. |
-| `binoculars` | `synthscan[ml]` | Highest accuracy (ICML 2024 zero-shot) - needs Falcon-7B models, >=32GB RAM or a GPU. |
+| `roberta` | `synthscan[ml]` | **CPU-friendly baseline.** Small classifier (~500 MB). **Trained on GPT-2-era data — not reliable for current LLMs.** See benchmark below. |
+| `binoculars` | `synthscan[ml]` / `[ml-quantized]` | Highest accuracy (ICML 2024 zero-shot). Needs Falcon-7B models: bf16 = >=32GB VRAM/RAM; 4-bit = a free 16GB GPU. |
 
-Try the CPU-friendly production backend:
+**Honest benchmark numbers** ([full table](benchmarks/README.md)):
+
+| Backend | Corpus | Accuracy | What it means |
+|---------|--------|----------|---------------|
+| `roberta` (CPU) | [modern-corpus.json](benchmarks/corpus/modern-corpus.json) | **50% (15/30)** | Coin flip on current-LLM text. Catches obvious filler, misses most realistic modern AI. Use as baseline only. |
+| `binoculars` (4-bit, T4) | *pending* | — | Run the [Kaggle notebook](scripts/benchmark_binoculars_kaggle.ipynb) to publish real numbers. |
+| `binoculars` (bf16) | *pending* | — | Requires rented >=32GB GPU. |
+
+> We publish real numbers because *"open source only matters if detection
+> genuinely works."* Right now the honest position is: **the accuracy path is
+> Binoculars, and it needs a GPU** — the CPU-only RoBERTa baseline is not a
+> Pangram/GPTZero answer.
+
+Run them yourself:
 
 ```bash
-python scripts/benchmark_roberta.py
-synthscan scan "Your text here" --backend roberta
-```
+# RoBERTa on the real corpus (CPU, ~500MB download):
+pip install -e ".[ml]"
+python scripts/benchmark_roberta.py --corpus benchmarks/corpus/modern-corpus.json --report benchmarks/cpu/roberta-modern-corpus.json
 
-GPU benchmark for Binoculars (free Kaggle/Colab):
-
-```bash
-# Free T4/P100 (16GB) - uses bitsandbytes 4-bit / 8-bit quantization:
+# Binoculars, free 16GB GPU (4-bit) or bf16 on >=32GB:
 pip install -e ".[ml-quantized]"
 python scripts/benchmark_binoculars.py --quantize 4bit --report benchmarks/quantized/T4-4bit.json
-
-# Higher fidelity but still GPU-practical 8-bit:
-python scripts/benchmark_binoculars.py --quantize 8bit --report benchmarks/quantized/T4-8bit.json
-
-# Stock bf16 (published baseline) - requires >=32GB VRAM/RAM:
-pip install -e ".[ml]"
-python scripts/benchmark_binoculars.py --report benchmarks/bf16/A100-bf16.json
 ```
-
-Two-click path on a free GPU: open
-[`scripts/benchmark_binoculars_kaggle.ipynb`](scripts/benchmark_binoculars_kaggle.ipynb)
-and commit it on Kaggle (Accelerator: GPU T4). It runs the 4-bit benchmark for
-you and hands back a JSON report.
 
 Register your own backend by implementing the `Detector` protocol and calling
 `register_backend(...)` — perfect for community models, image detection, etc.
@@ -162,10 +161,14 @@ Register your own backend by implementing the `Detector` protocol and calling
 ## Roadmap
 
 - [x] Core text detection pipeline (backend registry, segmentation, CLI, API)
-- [x] Lightweight CPU-friendly RoBERTa backend (default production path)
-- [x] Quantized (4-bit/8-bit) Binoculars benchmark for free 16GB GPUs - see `scripts/benchmark_binoculars_kaggle.ipynb`
-- [ ] Stock bf16 Binoculars benchmark on >=32GB GPU (requires rented hardware)
-- [x] Browser extension (Manifest V3 - context menu + popup)
+- [x] CPU-friendly RoBERTa baseline backend (published: 50% on modern corpus - baseline only)
+- [x] Quantized (4-bit/8-bit) Binoculars benchmark harness for free 16GB GPUs - see `scripts/benchmark_binoculars_kaggle.ipynb`
+- [x] First honest benchmark report published (`benchmarks/`)
+- [ ] **Run the Binoculars benchmark** (Kaggle 4-bit or rented bf16) and publish real accuracy
+- [ ] Image detection
+- [ ] Code detection
+- [ ] Live-web plagiarism index (opt-in)
+- [ ] Browser extension (Manifest V3) shipped to stores
 - [ ] Image detection
 - [ ] Code detection
 - [ ] Live-web plagiarism index (opt-in)
