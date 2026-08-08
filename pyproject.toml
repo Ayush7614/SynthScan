@@ -26,6 +26,9 @@ classifiers = [
 # So we depend on the GitHub source. This pulls Pin transformers (4.35.x) and
 # Falcon-7B models; install in a dedicated env when you have >=32GB RAM/GPU.
 ml = ["torch", "transformers", "binoculars @ git+https://github.com/ahans30/Binoculars.git"]
+# Adds bitsandbytes so the Binoculars backend can run quantized (4bit/8bit)
+# on a single 16GB GPU (Colab/Kaggle T4, P100, etc.).
+ml-quantized = ["torch", "transformers", "binoculars @ git+https://github.com/ahans30/Binoculars.git", "bitsandbytes"]
 api = ["fastapi", "uvicorn"]
 dev = ["pytest"]
 all = ["torch", "transformers", "binoculars @ git+https://github.com/ahans30/Binoculars.git", "fastapi", "uvicorn"]

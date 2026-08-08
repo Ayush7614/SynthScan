@@ -12,7 +12,7 @@ import os
 
 import pytest
 
-from synthscan.backends.binoculars import BinocularsDetector
+from synthscan.backends.binoculars import BinocularsDetector, _norm_quant
 
 
 class _FakeBino:
@@ -64,6 +64,21 @@ def test_backend_name_and_segments():
     result = detector.detect_text("First sentence here. Second sentence here too.")
     assert result.backend == "binoculars"
     assert isinstance(result.segments, list)
+
+
+def test_quant_normalization():
+    assert _norm_quant(None) == ""
+    assert _norm_quant("none") == ""
+    assert _norm_quant("None") == ""
+    assert _norm_quant("4bit") == "4bit"
+    assert _norm_quant(" 8BIT ") == "8bit"
+    with pytest.raises(ValueError):
+        _norm_quant("3bit")
+
+
+def test_quantization_property():
+    assert BinocularsDetector().quantization == ""
+    assert BinocularsDetector(quantization="4bit").quantization == "4bit"
 
 
 def test_helpful_error_when_missing(monkeypatch):
