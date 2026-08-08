@@ -1,0 +1,190 @@
+{
+  "backend": "roberta",
+  "model": "roberta-base-openai-detector",
+  "corpus": "benchmarks/corpus/modern-corpus.json",
+  "total": 30,
+  "correct": 15,
+  "accuracy": 0.5,
+  "results": [
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0002,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0116,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0002,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.1712,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.032,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0002,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0298,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0039,
+      "ok": true
+    },
+    {
+      "expected": "human",
+      "verdict": "AI-generated",
+      "ai_probability": 0.7794,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0091,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.1792,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0559,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0153,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.9965,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0236,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.05,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.7734,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.232,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.9725,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0826,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0169,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0029,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.0154,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0203,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "Human-written",
+      "ai_probability": 0.2606,
+      "ok": true
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0566,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "AI-generated",
+      "ai_probability": 0.7961,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "Human-written",
+      "ai_probability": 0.0208,
+      "ok": false
+    },
+    {
+      "expected": "human",
+      "verdict": "AI-generated",
+      "ai_probability": 0.9162,
+      "ok": false
+    },
+    {
+      "expected": "ai",
+      "verdict": "AI-generated",
+      "ai_probability": 0.9553,
+      "ok": true
+    }
+  ]
+}

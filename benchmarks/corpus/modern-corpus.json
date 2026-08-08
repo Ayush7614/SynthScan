@@ -1,0 +1,125 @@
+{
+  "description": "SynthScan benchmark corpus. Human samples are natural writing with personal detail and varied rhythm. AI samples emulate realistic MODERN language-model output (balanced, structured, generic) rather than obvious filler-bomb text, since that is what the detector must handle in practice. This is intentionally harder than a 4-sample sanity check.",
+  "samples": [
+    {
+      "expected": "human",
+      "text": "i remember standing in line for like an hour for that taco place downtown. crazy thing is the tacos were fine but not worth the blisters and the dude in front kept arguing with his girlfriend the whole time. anyway we still go back. idk why. habits i guess."
+    },
+    {
+      "expected": "human",
+      "text": "3:47 AM and the cat is screaming at the door again. I have checked the food bowl (full), the water (full), the litter (clean). I think she just enjoys performing. whatever. my roommate is going to lose it tomorrow. small price to pay for the drama I guess"
+    },
+    {
+      "expected": "human",
+      "text": "My dad sent me a pdf of the whole gov report instead of the one page I asked for. Classic. I printed it because he does not to take email seriously. seventeen pages of tables. I learned more about the water system than I ever wanted. thanks dad."
+    },
+    {
+      "expected": "human",
+      "text": "tried to fix the leaky tap with a youtube video. now there is water on the ceiling shelf of the neighbor below. FML. gonna have to call the plumber and admit the whole thing. my landlord is gonna laugh at me specifically, I can just tell."
+    },
+    {
+      "expected": "human",
+      "text": "The auction was wild. Some retirement age crypttrader bid 300 for an old sound card. evidently it's 'gold rolla quiet', whatever that means. the whole room was full of old amps and people who smelled like cable management. I left with nothing and huge respect"
+    },
+    {
+      "expected": "human",
+      "text": "Okay so the plant on the porch finally flowered and i am stupidly proud. It's been in a milk jug for two summers because i never repot anything. Anyway it's pink, it smells like bad decisions and i call it Frank. Frank is thriving."
+    },
+    {
+      "expected": "human",
+      "text": "Reading my old journal. page 87: plan to write a novel this winter. page 200: forgot the novel, started a fish tank. the fish died. the tank is now a very expensive bookshelf. all future plans deferred pending vibes review"
+    },
+    {
+      "expected": "human",
+      "text": "the bus was 40 min late and my shorthand for apologizing to my boss is basically a sonnet now. honestly if anything it improved my Spanish. the driver took detours and i got to see a whole neighborhood of dogs. silver linings by"
+    },
+    {
+      "expected": "human",
+      "text": "Bought my first big coffee machine with actual buttons. Now the whole office lines up at my desk like I run a regional chain. I cannot make a latte and I am too focused to learn. People are starting to tip me with snacks"
+    },
+    {
+      "expected": "human",
+      "text": "got a postcard from my grandma writ in perfect cursive that starts with 'to whom it may concern' and ends with 'please call, the landline'. she does not have a landline. she won the landline. mystery unsolved. i love her"
+    },
+    {
+      "expected": "ai",
+      "text": "Leveraging a multifaceted approach, our platform aims to streamline workflow efficiencies across distributed teams by integrating seamless collaboration tools and robust data analytics, ensuring that stakeholders remain aligned with organizational objectives and empowered to deliver scalable outcomes."
+    },
+    {
+      "expected": "ai",
+      "text": "In today's fast-paced digital landscape, it is essential for businesses to adopt a proactive mindset. By fostering a culture of continuous innovation and embracing transformation, organizations can position themselves for sustainable growth and long-term success while navigating an increasingly competitive environment."
+    },
+    {
+      "expected": "ai",
+      "text": "The committee will review all submissions comprehensively, ensuring that each proposal is evaluated against a robust set of criteria to guarantee fairness, transparency, and accountability at every stage of the selection process. We value the contributions of all participants and thank everyone for their time."
+    },
+    {
+      "expected": "ai",
+      "text": "As we look toward the future, it becomes imperative to harness the power of technology to drive meaningful change. By embracing data-driven solutions and fostering strategic alliances, we can unlock new opportunities and create value for our customers, partners, and communities."
+    },
+    {
+      "expected": "ai",
+      "text": "This comprehensive guide provides a thorough exploration of the key considerations, offering actionable insights and best practices to help teams effectively implement a cohesive strategy aligned with their goals and industry standards. It is invaluable resource for both beginners and professionals alike."
+    },
+    {
+      "expected": "ai",
+      "text": "To ensure optimal outcomes, it is crucial to prioritize resource allocation and maintain operational elasticity, enabling the organization to respond to shifting demands with agility and confidence, thereby improving efficiency and reinforcing sustained momentum across key initiatives and departments."
+    },
+    {
+      "expected": "ai",
+      "text": "The study examined the research corpus to identify statistically meaningful patterns in participant behavior, while controlling for confounding variables. Results indicate a notable correlation, underscoring the need for further investigation into the underlying causal mechanisms driving these observed relationships."
+    },
+    {
+      "expected": "ai",
+      "text": "As an advocate for positive change, my goal is to contribute meaningfully to the community by offering relevant expertise and showing genuine commitment to transparency and ethics in every interaction, thereby building trust and fostering long-term partnership with our associates."
+    },
+    {
+      "expected": "ai",
+      "text": "We believe that a focus on implementation, combined with a culture of continuous improvement, empowers teams to reach their full potential. Through careful planning, dedicated process, and a shared commitment, our organization can deliver exceptional results and a sustained strategic advantage."
+    },
+    {
+      "expected": "ai",
+      "text": "Your feedback is valuable; it enables us to refine our offerings and ensure we consistently meet, if not exceed, the expectations of our stakeholders. We welcome the results of your candid thoughts and genuinely appreciate the opportunity to adapt and grow alongside our larger ecosystem."
+    },
+    {
+      "expected": "ai",
+      "text": "Ultimately, success is not a single outcome but a series of informed decisions. By prioritizing details, sustaining alignment among stakeholders, and measuring outcomes along the way, any team can chart the path toward robust, involve, and future-ready results."
+    },
+    {
+      "expected": "ai",
+      "text": "In conclusion, the proposed solution represents a paradigm shift in how we approach a complex challenge. By integrating thoughtful practices and encouraging a cultivated mindset, we position ourselves to exceed benchmarks, delight customers, and build a resilient foundation for future innovation and leadership."
+    },
+    {
+      "expected": "human",
+      "text": "you know my tier drip is worse now because i glued the nozzle at the wrong angle and it just blows angry water. i rank against nobody but my own hubris. anyway the garden is fine. the tomatoes are dramatic, the basil is extremely normal."
+    },
+    {
+      "expected": "ai",
+      "text": "Please find attached the requested documentation. Should you have any concerns or require further assistance whatsoever, do not hesitate to reach out to our support team at your earliest convenience. We aim to respond to all inquiries within a simple business, day"
+    },
+    {
+      "expected": "human",
+      "text": "idk why but my whole class started calling the vending machine by its cohort of beings. it broke on tuesday and three people wrote elegies on the lunchboard. it got fixed today. someone wrote 'he has risen' under the snack panel. truly art"
+    },
+    {
+      "expected": "ai",
+      "text": "The initiative is designed to bridge the gap between traditional processes and innovative technologies by establishing a robust benefits framework, ensuring that every stakeholder is aligned, informed, and equipped to contribute effectively to a collective narrative of progress and shared success."
+    },
+    {
+      "expected": "human",
+      "text": "the gym has one bench press and a guy who louder than the music on it. today he parked it for 45 minutes to rest. I wanted to curl him. instead i did bicep curls with a mystery weight basket. anyway core is future me's problem. another"
+    },
+    {
+      "expected": "ai",
+      "text": "By taking a proactive and all-inclusive approach, we are confident that the project will exceed expectations while remaining well within the established parameters. The team remains dedicated to delivering quality at every step, supported by continuous and open communication for all relevant partners."
+    },
+    {
+      "expected": "human",
+      "text": "My parking spot is absolutely theoretical. it works on paper, on ground it is a fire hose zone. today I 'parking lot olympics' around three other cars to claim it. there is a soccased someone cried the other morning. he got game face but lost"
+    },
+    {
+      "expected": "ai",
+      "text": "Achieving organizational resilience, and agile approach that prioritizes customer-centricity, we continuously optimize processes to deliver seamless experiences while balancing efficiency, innovation, and scalability across the entire provided continuum of our services ecosystem."
+    }
+  ]
+}
