@@ -66,7 +66,6 @@ jobs:
               lines.push(`| ${i + 1} | ${res.expected} | ${res.verdict} | ${(res.ai_probability * 100).toFixed(0)}% | ${res.ok ? '✅' : '❌'} |`);
             });
             const body = lines.join('\n');
-            const context = github.context;
             if (context.payload.pull_request) {
               const { owner, repo } = context.repo;
               await github.rest.issues.createComment({

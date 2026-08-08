@@ -90,10 +90,16 @@ class _QuantizedBinoculars:
         from binoculars.metrics import entropy, perplexity
 
         quant_type = _norm_quant(quant_type)
+        # P100 (Pascal) lacks bfloat16 support; fall back to float16 there.
+        compute_dtype = (
+            torch.bfloat16
+            if torch.cuda.is_available() and torch.cuda.is_bfloat16_supported()
+            else torch.float16
+        )
         if quant_type == "4bit":
             quant_config = BitsAndBytesConfig(
                 load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.bfloat16,
+                bnb_4bit_compute_dtype=compute_dtype,
                 bnb_4bit_quant_type="nf4",
                 bnb_4bit_use_double_quant=True,
             )
@@ -152,8 +158,9 @@ class _QuantizedBinoculars:
     def _get_logits(self, encodings):
         import torch
 
-        observer_logits = self.observer_model(**encodings.to(self.device)).logits
-        performer_logits = self.performer_model(**encodings.to(self.device)).logits
+        with torch.inference_mode():
+            observer_logits = self.observer_model(**encodings.to(self.device)).logits
+            performer_logits = self.performer_model(**encodings.to(self.device)).logits
         if self.device != "cpu":
             torch.cuda.synchronize()
         return observer_logits, performer_logits
@@ -229,6 +236,15 @@ class BinocularsDetector:
 
         if self._quantization:
             from binoculars import Binoculars as _  # noqa: F401  (sanity import)
+
+            try:
+                import bitsandbytes  # noqa: F401
+            except ImportError as exc:  # pragma: no cover - depends on environment
+                raise ImportError(
+                    "Quantized binoculars requires 'synthscan[ml-quantized]'. "
+                    "Install with:  pip install 'synthscan[ml-quantized]'  "
+                    "or: pip install torch transformers binoculars bitsandbytes"
+                ) from exc
 
             init_kwargs = dict(self._kwargs)
             quant_type = self._quantization

@@ -137,7 +137,8 @@ synthscan scan "Your text here" --backend roberta
 GPU benchmark for Binoculars (free Kaggle/Colab):
 
 ```bash
-# Free T4/P100 (16GB) - uses bitsandbytes 4-bit quantization:
+# Free T4/P100 (16GB) - uses bitsandbytes 4-bit / 8-bit quantization:
+pip install -e ".[ml-quantized]"
 python scripts/benchmark_binoculars.py --quantize 4bit --report benchmarks/quantized/T4-4bit.json
 
 # Higher fidelity but still GPU-practical 8-bit:
@@ -163,7 +164,7 @@ Register your own backend by implementing the `Detector` protocol and calling
 - [x] Core text detection pipeline (backend registry, segmentation, CLI, API)
 - [x] Lightweight CPU-friendly RoBERTa backend (default production path)
 - [x] Quantized (4-bit/8-bit) Binoculars benchmark for free 16GB GPUs - see `scripts/benchmark_binoculars_kaggle.ipynb`
-- [ ] Stock bf16 Binoculars benchmark on >=32GB GPU (needs rented hardware)
+- [ ] Stock bf16 Binoculars benchmark on >=32GB GPU (requires rented hardware)
 - [x] Browser extension (Manifest V3 - context menu + popup)
 - [ ] Image detection
 - [ ] Code detection
