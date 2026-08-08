@@ -1,13 +1,23 @@
 #!/usr/bin/env python3
 """Benchmark / sanity-check the real Binoculars backend.
 
-Run this on hardware that can host the Falcon-7B models (>=32GB RAM or a GPU):
+Two modes:
 
-    pip install "synthscan[ml]"
-    python scripts/benchmark_binoculars.py [--device cuda:0] [--report /path/report.json]
+1. Stock bf16 (default, most accurate, = published baseline):
+   Needs the two Falcon-7B models in bfloat16 (~28GB VRAM, or >=32GB RAM):
 
-It downloads the models on first run and prints accuracy on a small, fixed set
-of human vs. AI-style examples, writing a machine-readable report for CI.
+       pip install "synthscan[ml]"
+       python scripts/benchmark_binoculars.py --report report.json
+
+2. Quantized (fits a free 16GB GPU such as a Colab/Kaggle T4):
+
+       pip install "synthscan[ml]" bitsandbytes
+       python scripts/benchmark_binoculars.py --quantize 4bit --report report.json
+
+Note: upstream Binoculars picks its device itself (cuda:0 when present, else
+cpu), so the script does NOT pass a device flag into the detector; ``--device``
+here is only recorded in the report. The stock bfloat16 path requires >=32GB RAM
+/ a large GPU; try ``--quantize 4bit`` on small GPUs.
 """
 
 import argparse
@@ -34,7 +44,7 @@ SAMPLES = [
 ]
 
 
-def run(detector, samples: list[dict], device: str | None) -> dict:
+def run(detector, samples: list[dict], device: str, quantization: str) -> dict:
     results = []
     correct = 0
     for sample in samples:
@@ -55,7 +65,8 @@ def run(detector, samples: list[dict], device: str | None) -> dict:
     return {
         "backend": "binoculars",
         "model": "Falcon-7B + Falcon-7B-Instruct (zero-shot)",
-        "device": device or "auto",
+        "quantization": quantization or "bf16 (stock)",
+        "device": device,  # note: upstream auto-selects cuda:0/cpu; recorded here
         "total": total,
         "correct": correct,
         "accuracy": round(correct / total, 4),
@@ -63,14 +74,16 @@ def run(detector, samples: list[dict], device: str | None) -> dict:
     }
 
 
-def main(device: str | None, report: str | None) -> int:
+def main(device: str | None, quantize: str, report: str | None) -> int:
     print("Loading Binoculars (first run downloads Falcon-7B models, ~14GB)...")
+    if quantize:
+        print(f"Quantized mode: {quantize} (fits a 16GB GPU)")
     start = time.perf_counter()
-    detector = BinocularsDetector(device=device)
+    detector = BinocularsDetector(device=device, quantization=quantize or None)
     detector._load()  # noqa: SLF001 - trigger the model load up front
     print(f"Loaded in {time.perf_counter() - start:.1f}s\n")
 
-    report_data = run(detector, SAMPLES, device)
+    report_data = run(detector, SAMPLES, device or "auto", quantize)
 
     out_path = Path(report or "benchmark-binoculars-report.json")
     out_path.write_text(json.dumps(report_data, indent=2))
@@ -83,7 +96,11 @@ def main(device: str | None, report: str | None) -> int:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--device", default=None,
-                        help="torch device, e.g. 'cuda:0', 'mps', 'cpu' (default: auto)")
+                        help="recorded device string for the report (auto-detected by upstream)")
+    parser.add_argument("--quantize", default="",
+                        choices=["", "none", "4bit", "8bit"],
+                        help="load Falcon-7B weights with bitsandbytes (4bit/8bit) to fit"
+                             " a 16GB GPU (default: stock bfloat16, needs >=32GB RAM)")
     parser.add_argument("--report", default=None, help="Path to write JSON report")
     args = parser.parse_args()
-    sys.exit(main(device=args.device, report=args.report))
+    sys.exit(main(device=args.device, quantize=args.quantize, report=args.report))

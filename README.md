@@ -134,6 +134,25 @@ python scripts/benchmark_roberta.py
 synthscan scan "Your text here" --backend roberta
 ```
 
+GPU benchmark for Binoculars (free Kaggle/Colab):
+
+```bash
+# Free T4/P100 (16GB) - uses bitsandbytes 4-bit quantization:
+python scripts/benchmark_binoculars.py --quantize 4bit --report benchmarks/quantized/T4-4bit.json
+
+# Higher fidelity but still GPU-practical 8-bit:
+python scripts/benchmark_binoculars.py --quantize 8bit --report benchmarks/quantized/T4-8bit.json
+
+# Stock bf16 (published baseline) - requires >=32GB VRAM/RAM:
+pip install -e ".[ml]"
+python scripts/benchmark_binoculars.py --report benchmarks/bf16/A100-bf16.json
+```
+
+Two-click path on a free GPU: open
+[`scripts/benchmark_binoculars_kaggle.ipynb`](scripts/benchmark_binoculars_kaggle.ipynb)
+and commit it on Kaggle (Accelerator: GPU T4). It runs the 4-bit benchmark for
+you and hands back a JSON report.
+
 Register your own backend by implementing the `Detector` protocol and calling
 `register_backend(...)` — perfect for community models, image detection, etc.
 
@@ -143,7 +162,8 @@ Register your own backend by implementing the `Detector` protocol and calling
 
 - [x] Core text detection pipeline (backend registry, segmentation, CLI, API)
 - [x] Lightweight CPU-friendly RoBERTa backend (default production path)
-- [ ] Real Binoculars benchmark on GPU hardware
+- [x] Quantized (4-bit/8-bit) Binoculars benchmark for free 16GB GPUs - see `scripts/benchmark_binoculars_kaggle.ipynb`
+- [ ] Stock bf16 Binoculars benchmark on >=32GB GPU (needs rented hardware)
 - [x] Browser extension (Manifest V3 - context menu + popup)
 - [ ] Image detection
 - [ ] Code detection
